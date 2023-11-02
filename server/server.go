@@ -2,8 +2,9 @@ package server
 
 import "net/http"
 type Country struct {
-	Name string
-	Language string
+	ID int64 `json:"id"`
+	Name string `json:"name"`
+	Language string `json:"language"`
 }
 
 var countries []*Country = []*Country{}

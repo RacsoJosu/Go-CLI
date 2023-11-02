@@ -19,10 +19,54 @@ func index(w http.ResponseWriter, r *http.Request) {
 }
 
 func getCountries(w http.ResponseWriter, r *http.Request){
+	// especificar el contenido
 	w.Header().Set("Content-Type", "application/json")
+	// 
 	json.NewEncoder(w).Encode(countries)
 
 }
 func addCountry(w http.ResponseWriter, r *http.Request){
+	country := &Country{}
+	err := json.NewDecoder(r.Body).Decode(country)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprintf(w, "%v", err)
+		return
+	}
+	fmt.Println(country)
+	countries = append(countries, country)
+	fmt.Fprintf(w, "country ha sido agregado")
+
+}
+
+func updateCountry(w http.ResponseWriter, r *http.Request){
+	country := &Country{}
+	err := json.NewDecoder(r.Body).Decode(country)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprintf(w, "%v", err)
+		return
+	}
+
+	for _, country_ := range countries {
+
+		if country_.ID == country.ID {
+			if country.Name != ""  {
+				country_.Name = country.Name
+				
+			}
+
+			if country.Language != ""  {
+				country_.Language = country.Language
+				
+			}
+
+
+			
+		}
+
+		
+	}
+	fmt.Fprintf(w, "country ha sido actualizado")
 
 }

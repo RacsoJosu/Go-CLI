@@ -14,6 +14,10 @@ func initRoutes(){
 				
 			case http.MethodPost:
 				addCountry(w,r)
+
+
+			case http.MethodPut:
+				updateCountry(w,r)	
 				
 			default:
 				w.WriteHeader(http.StatusMethodNotAllowed)
